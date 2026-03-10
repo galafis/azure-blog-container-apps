@@ -1,41 +1,102 @@
-# Blog com Azure Container Apps
+# Blog Platform with Azure Container Apps / Plataforma de Blog com Azure Container Apps
 
-## Desafio de Projeto - DIO Microsoft Azure Cloud Native 2026
+## English
 
-### Descrição
+### About the Project
 
-Projeto desenvolvido como parte do bootcamp Microsoft Azure Cloud Native 2026 da DIO. O objetivo é demonstrar a criação de um blog utilizando Azure Container Apps, aplicando conceitos de containerização, orquestração e deploy na nuvem.
+A blog platform with a Flask-like API architecture, built for deployment on Azure Container Apps. Features a complete content management system with posts, categories, tags, comments, and a built-in markdown-to-HTML renderer. Uses in-memory storage to simulate database operations with full CRUD support.
 
-### Tecnologias Utilizadas
-
-- **Azure Container Apps** - Plataforma serverless para execução de contêineres
-- **Azure Container Registry (ACR)** - Registro privado de imagens Docker
-- **Docker** - Containerização da aplicação
-- **Azure CLI** - Gerenciamento de recursos via linha de comando
-
-### Arquitetura
+### Architecture
 
 ```
-[Dockerfile] -> [ACR Build] -> [Container Registry] -> [Container Apps Environment] -> [Blog App]
+azure-blog-container-apps/
+|-- app/
+|   |-- models.py                  # Post, Category, Tag, Comment dataclasses
+|   |-- database.py                # In-memory DB with CRUD operations
+|   |-- routes/
+|   |   |-- posts.py               # Post API endpoint handlers
+|   |   |-- comments.py            # Comment API endpoint handlers
+|   |-- services/
+|   |   |-- markdown_renderer.py   # Markdown to HTML converter
+|-- tests/
+|   |-- test_blog.py               # 20+ unit tests
+|-- main.py                        # Demo script
+|-- requirements.txt
+|-- .gitignore
+|-- README.md
 ```
 
-### Passos Realizados
+### Key Features
 
-1. **Criação do Dockerfile** - Configuração do ambiente containerizado
-2. **Resource Group e ACR** - Provisionamento da infraestrutura base
-3. **Build e Push da Imagem** - Upload para o Azure Container Registry
-4. **Deploy no Container Apps** - Publicação com escalabilidade automática
-5. **Configuração de Ingress** - Exposição pública via HTTPS
+- **Post Management**: Full CRUD with publish/unpublish workflow
+- **Categories & Tags**: Organize content with categories and tags
+- **Comment System**: Threaded comments with moderation (approve/reject)
+- **Markdown Rendering**: Built-in converter supporting headers, bold, italic, code blocks, links, lists, blockquotes
+- **Slug Generation**: Automatic URL-friendly slug creation from titles
+- **Filtering**: Query posts by author, category, tag, or publish status
+- **Statistics**: Dashboard stats for posts, comments, and moderation queue
 
-### Principais Aprendizados
+### How to Run
 
-- Container Apps abstrai a complexidade do Kubernetes
-- ACR integra nativamente com Container Apps
-- Escalabilidade automática baseada em demanda (scale-to-zero)
-- Revisões permitem deploy blue/green e canary
-- Segredos gerenciados de forma segura no ambiente
+```bash
+# Clone the repository
+git clone https://github.com/galafis/azure-blog-container-apps.git
+cd azure-blog-container-apps
 
-### Comandos Principais
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the demo
+python main.py
+
+# Run tests
+pytest tests/ -v
+```
+
+### Technologies
+
+| Technology | Purpose |
+|---|---|
+| Python 3.10+ | Core language |
+| pytest | Testing framework |
+| dataclasses | Data models |
+
+---
+
+## Portugues
+
+### Sobre o Projeto
+
+Plataforma de blog com arquitetura de API estilo Flask, construida para deploy no Azure Container Apps. Possui um sistema completo de gerenciamento de conteudo com posts, categorias, tags, comentarios e um renderizador de markdown para HTML integrado. Utiliza armazenamento em memoria para simular operacoes de banco de dados com suporte completo a CRUD.
+
+### Funcionalidades Principais
+
+- **Gerenciamento de Posts**: CRUD completo com fluxo de publicar/despublicar
+- **Categorias e Tags**: Organize conteudo com categorias e tags
+- **Sistema de Comentarios**: Comentarios com respostas encadeadas e moderacao
+- **Renderizacao Markdown**: Conversor integrado com suporte a cabecalhos, negrito, italico, blocos de codigo, links, listas e citacoes
+- **Geracao de Slug**: Criacao automatica de slugs amigaveis para URL
+- **Filtragem**: Consulte posts por autor, categoria, tag ou status de publicacao
+- **Estatisticas**: Painel com estatisticas de posts, comentarios e fila de moderacao
+
+### Como Executar
+
+```bash
+# Clonar o repositorio
+git clone https://github.com/galafis/azure-blog-container-apps.git
+cd azure-blog-container-apps
+
+# Instalar dependencias
+pip install -r requirements.txt
+
+# Executar o demo
+python main.py
+
+# Executar os testes
+pytest tests/ -v
+```
+
+### Deploy no Azure Container Apps
 
 ```bash
 # Criar Resource Group
@@ -57,18 +118,15 @@ az containerapp create \
   --ingress external
 ```
 
-### Estrutura do Projeto
+### Tecnologias Utilizadas
 
-```
-/
-|-- Dockerfile
-|-- README.md
-|-- src/
-|   |-- index.html
-|   |-- styles.css
-```
+| Tecnologia | Finalidade |
+|---|---|
+| Python 3.10+ | Linguagem principal |
+| pytest | Framework de testes |
+| dataclasses | Modelos de dados |
+| Azure Container Apps | Plataforma de deploy |
 
----
+## Autor / Author
 
-**Autor:** Gabriel Demetrios Lafis  
-**Bootcamp:** Microsoft Azure Cloud Native 2026 - DIO
+**Gabriel Demetrios Lafis**
